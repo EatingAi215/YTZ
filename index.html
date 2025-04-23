@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>股票盈利计算器</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">📈 股票盈利计算器</h1>
+
+    <div class="space-y-5">
+      <div>
+        <label for="costPrice" class="block text-sm font-medium text-gray-700">成本价（元/股）</label>
+        <input id="costPrice" type="number" step="0.01" value="25.098"
+          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 text-base" />
+      </div>
+
+      <div>
+        <label for="currentPrice" class="block text-sm font-medium text-gray-700">当前价格（元/股）</label>
+        <input id="currentPrice" type="number" step="0.01" value="30"
+          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 text-base" />
+      </div>
+
+      <div>
+        <label for="shares" class="block text-sm font-medium text-gray-700">持有股数</label>
+        <input id="shares" type="number" value="12000"
+          class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 text-base" />
+      </div>
+
+      <button onclick="calculateProfit()"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 px-4 rounded-xl font-semibold transition duration-150 ease-in-out">
+        计算盈利
+      </button>
+
+      <div id="result" class="text-green-600 font-bold text-xl text-center mt-2"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateProfit() {
+      const costPrice = parseFloat(document.getElementById('costPrice').value)
+      const currentPrice = parseFloat(document.getElementById('currentPrice').value)
+      const shares = parseInt(document.getElementById('shares').value)
+
+      if (isNaN(costPrice) || isNaN(currentPrice) || isNaN(shares)) {
+        document.getElementById('result').textContent = '请输入有效数字'
+        return
+      }
+
+      const profit = (currentPrice - costPrice) * shares
+      document.getElementById('result').textContent = `总盈利：${profit.toFixed(2)} 元`
+    }
+  </script>
+</body>
+</html>
